@@ -402,6 +402,10 @@ else ()
     glog PROPERTIES
     IMPORTED_LOCATION ${GLOG_INSTALL_DIR}/lib/libglog${LIBRARY_SUFFIX}
     IMPORTED_IMPLIB ${GLOG_INSTALL_DIR}/lib/libglog${CMAKE_IMPORT_LIBRARY_SUFFIX}
+    IMPORTED_LOCATION_RELEASE ${GLOG_INSTALL_DIR}/lib/libglog${LIBRARY_SUFFIX}
+    IMPORTED_IMPLIB_RELEASE ${GLOG_INSTALL_DIR}/lib/libglog${CMAKE_IMPORT_LIBRARY_SUFFIX}
+    IMPORTED_LOCATION_DEBUG ${GLOG_INSTALL_DIR}/lib/libglogd${LIBRARY_SUFFIX}
+    IMPORTED_IMPLIB_DEBUG ${GLOG_INSTALL_DIR}/lib/libglogd${CMAKE_IMPORT_LIBRARY_SUFFIX}
   )
 endif ()
 
@@ -1084,8 +1088,6 @@ if (NOT UNBUNDLED_LIBARCHIVE)
     -DCMAKE_PREFIX_PATH=${ZLIB_ROOT}-lib@@${BZIP2_ROOT}-lib@@${XZ_ROOT}-lib
     -DCMAKE_INSTALL_PREFIX=${LIBARCHIVE_ROOT}-build)
 
-  PATCH_CMD(LIBARCHIVE_PATCH_CMD libarchive-${LIBARCHIVE_VERSION}.patch)
-
   # NOTE: On Windows, libarchive is linked against several compression
   # libraries included in the build chain, such as bzip2, xz, and zlib.
   # On other platforms, libarchive links to zlib only, as bzip2 and xz
@@ -1128,7 +1130,6 @@ if (NOT UNBUNDLED_LIBARCHIVE)
     DEPENDS           ${LIBARCHIVE_DEPENDS}
     PREFIX            ${LIBARCHIVE_CMAKE_ROOT}
     BUILD_BYPRODUCTS  ${LIBARCHIVE_BYPRODUCTS}
-    PATCH_COMMAND     ${LIBARCHIVE_PATCH_CMD}
     LIST_SEPARATOR    @@
     CMAKE_ARGS        ${LIBARCHIVE_CMAKE_ARGS}
     URL               ${LIBARCHIVE_URL}
